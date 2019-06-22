@@ -1,0 +1,52 @@
+NAME:  Junhong Wang
+EMAIL: oneone@g.ucla.edu
+ID:    504941113
+
+------------------------
+README
+------------------------
+descriptions of each of the included files and any other information about 
+my submission that I would like to bring to your attention
+
+------------------------
+lab4b.c
+------------------------
+C source files for an embedded application that builds and runs 
+(with no errors or warnings) on an embedded system
+
+------------------------
+Makefile
+------------------------
+A Makefile to compile the program
+
+------------------------
+smokeTest.sh
+------------------------
+A helper script for make check target
+
+------------------------
+Other
+------------------------
+* How to use localtime()
+https://www.tutorialspoint.com/c_standard_library/c_function_localtime.htm
+
+* How to use difftime()
+https://www.tutorialspoint.com/c_standard_library/c_function_difftime.htm
+
+* How to format leading zeros
+https://stackoverflow.com/questions/153890/printing-leading-0s-in-c
+
+* How to use aio related functions
+https://iotdk.intel.com/docs/master/mraa/aio_8h.html
+
+* How to translate raw temperature
+http://wiki.seeedstudio.com/Grove-Temperature_Sensor_V1.2/
+
+* How to compare strings
+https://overiq.com/c-programming-101/the-strcmp-function-in-c/
+
+* How to compare first n characters of strings
+https://www.techonthenet.com/c_language/standard_library_functions/string_h/strncmp.php
+
+
+

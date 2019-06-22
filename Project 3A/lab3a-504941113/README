@@ -1,0 +1,49 @@
+NAME:  Junhong Wang
+EMAIL: oneone@g.ucla.edu
+ID:    504941113
+
+==========
+Description
+==========
+----------
+lab3a.c
+----------
+the main program
+
+----------
+ext2_fs.h
+----------
+header file for lab3a.c
+
+----------
+Makefile
+----------
+help compilation
+
+----------
+README
+----------
+containing information about this package
+
+-------------------------------
+test.sh trivial.img trivial.csv
+-------------------------------
+These files are for make test
+
+
+==========
+Other
+==========
+
+* Understanding EXT2
+http://web.cs.ucla.edu/~harryxu/courses/111/spring19/ProjectGuide/P3A.html
+http://pages.cs.wisc.edu/~remzi/OSTEP/file-implementation.pdf
+
+* How to use gmtime()
+https://www.tutorialspoint.com/c_standard_library/c_function_gmtime.htm
+
+* How to use strftime()
+https://www.geeksforgeeks.org/strftime-function-in-c/
+https://www.tutorialspoint.com/c_standard_library/c_function_strftime.htm
+
+

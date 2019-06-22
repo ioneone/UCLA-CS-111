@@ -1,0 +1,133 @@
+NAME:  Junhong Wang
+EMAIL: oneone@g.ucla.edu
+ID:    504941113
+
+========================
+lab0.c
+========================
+The program copies its standard input to standard output. If no errors are encountered, 
+it returns with exit status 0.
+
+There are four options avaialble.
+--input=filename       use the specified file as standard input
+--output=filename      create the specified file and use it as standard output
+--segfault             force a segmentation fault 
+--catch                catch the segmentation fault and log an error message
+
+========================
+Makefile
+========================
+default : build the lab0 executable.
+check   : runs a quick smoke-test on whether or not the program seems to work, 
+          supports the required arguments, and properly reports success or failure.
+          See smoke-test section for more details.
+clean   : delete all files created by the Makefile, and return the directory to its freshly untared state.
+dist    : build the distribution tarball.
+
+========================
+check.sh
+========================
+make check runs this script. See smoke-test section for more details.
+
+========================
+smoke-test
+========================
+check stdin                  : check if the program works with standard input.
+check input option           : check if the program works with --input option.
+check output option          : check if the program works with --output option.
+check input/output option    : check if the program works with both --input and --output options.
+check segfault option        : check if the program crashes with --segfault option.
+check segfault/catch option  : check if the program exits with status 4.
+check copy successful        : check if the program exits with status 0.
+check unrecognized argument  : check if the program exits with status 1.
+check invalid input file     : check if the program exits with status 2.
+check invalid output file    : check if the program exits with status 3.
+
+========================
+backtrace.png
+========================
+screenshot of stack backtrace of the program with segfault option.
+
+========================
+breakpoint.png
+========================
+screenshot of breakpoint and inspection of the program with segfault option.
+
+=====================================
+Notes I took while doing this project
+=====================================
+* How to parse arguments in C?
+
+#include <getopt.h>
+struct option options[] = {
+	{"FLAG",     no_argument,       &flag, 1},
+	{"OPTION_A", no_argument,       0,             'a'},
+	{"OPTION_B", required_argument, 0,             'b'},
+	{0, 0, 0, 0}
+}
+
+c = getopt_long(argc, argv, "", options, NULL);
+
+Here's the struct of option.
+
+struct option {
+   const char *name;
+   int         has_arg;
+   int        *flag;
+   int         val;
+};
+
+There are three ways to use an option.
+
+1. flag: {"FLAG", no_argument, &flag, 1} 
+getopt_long() set flag be 1 if it encounters "FLAG". getopt_long() will return 0.
+
+2. option w/o argument: {"OPTION_A", no_argument, 0, 'a'} 
+getopt_long() will return 'a' if it encounters "OPTION_A"
+
+3. option w/ argument: {"OPTION_B", required_argument, 0, 'b'}
+getopt_long() will return 'b' if it encounters "OPTION_B".
+The argument will be stored in "optarg".
+
+
+* How to open or create a file?
+
+open(filename, flags, mode)
+
+Here are some useful flags:
+O_RDONLY  open for reading only
+O_WRONLY  open for writing only
+O_CREAT   create file if it does not exist
+O_TRUNC   truncate size to 0
+
+creat(filename, mode)
+
+This is same as open(path, O_CREAT | O_TRUNC | O_WRONLY, mode)
+
+Use mode to specify the permissions
+e.g 0777 is same as rwxrwxrwx
+e.g 0666 is same as rw-rw-rw-
+
+The reason we have leading 0 is because we are telling C compiler
+that, for example, 777 is octal and not decimal.
+777 (octal)   =   111 111 111 (binary) =  rwxrwxrwx
+777 (decimal) = 1 100 001 001 (binary) = sr----x--x
+
+https://unix.stackexchange.com/questions/103413/is-there-any-difference-between-mode-value-0777-and-777
+
+
+* fprintf, stderr, and errno
+fprintf(stderr, "%s\n", strerror(errno));
+
+fprintf() will print stuff to specified file descripter.
+Errno is a value set when a system call fails.
+To convert errno to human understandable description,
+we can use strerror()
+
+So what's above is that we are storing the errno description to stderr.
+
+* Writing bash script in Makefile
+Makefile sends each command to separate shell, and thus screw the format of conditional statements.
+It's easier to just place the commands in different bash script and run that script in Makefile.
+
+https://unix.stackexchange.com/questions/452413/makefile-not-accepting-conditionals

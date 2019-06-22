@@ -1,0 +1,35 @@
+NAME:  Junhong Wang
+EMAIL: oneone@g.ucla.edu
+ID:    504941113
+
+==========
+Description
+==========
+----------
+lab3b.py
+----------
+the main program
+
+----------
+Makefile
+----------
+help compilation
+
+----------
+README
+----------
+containing information about this package
+
+----------
+trivial.csv
+----------
+resource for Makefile test target
+
+==========
+Other
+==========
+* How to append to list in dictionary
+https://stackoverflow.com/questions/26367812/appending-to-list-in-python-dictionary
+
+* Note that only inode number starts from 1. Block number starts from 0
+

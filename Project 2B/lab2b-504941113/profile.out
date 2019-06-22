@@ -1,0 +1,454 @@
+Total: 1356 samples
+    1166  86.0%  86.0%     1166  86.0% __sync_lock_spin_with_timer
+     146  10.8%  96.8%      146  10.8% __strcmp_sse42
+      21   1.5%  98.3%       97   7.2% SortedList_lookup
+      19   1.4%  99.7%       93   6.9% SortedList_insert
+       4   0.3% 100.0%        4   0.3% _init
+       0   0.0% 100.0%     1356 100.0% __clone
+       0   0.0% 100.0%       97   7.2% handle_list_delete
+       0   0.0% 100.0%      699  51.5% spin_list_delete
+       0   0.0% 100.0%      656  48.4% spin_list_insert
+       0   0.0% 100.0%        1   0.1% spin_list_length
+       0   0.0% 100.0%     1356 100.0% start_thread
+       0   0.0% 100.0%     1356 100.0% thread_function
+       0   0.0% 100.0%      699  51.5% thread_list_delete
+       0   0.0% 100.0%      656  48.4% thread_list_insert
+       0   0.0% 100.0%        1   0.1% thread_list_length
+ROUTINE ====================== thread_function in /u/cs/ugrad/junhong/cs111/project2b/lab2_list.c
+     0   1356 Total samples (flat / cumulative)
+     .      .  241: 		}
+     .      .  242: 		
+     .      .  243: 	}
+     .      .  244: }
+     .      .  245: 
+---
+     .      .  246: void* thread_function(void *threadInfo) {
+     .      .  247: 
+     .      .  248: 	struct ThreadInfo *info = (struct ThreadInfo*) threadInfo;
+     .      .  249: 
+     .      .  250: 	// inserts them all into a (single shared-by-all-threads) list
+     .    656  251: 	thread_list_insert(info->index);
+     .      .  252: 
+     .      .  253: 	// gets the list length
+     .      1  254: 	thread_list_length();
+     .      .  255: 
+     .      .  256: 	// looks up and deletes each of the keys it had previously inserted
+     .    699  257: 	thread_list_delete(info->index);
+     .      .  258: 
+     .      .  259: 	// exits to re-join the parent thread
+     .      .  260: 	return NULL;
+     .      .  261: 	
+     .      .  262: }
+---
+     .      .  263: 
+     .      .  264: void initialize_random_generator() {
+     .      .  265: 	srand(time(NULL));
+     .      .  266: }
+     .      .  267: 
+ROUTINE ====================== thread_function in /u/cs/ugrad/junhong/cs111/project2b/lab2_list.c
+     0   1356 Total samples (flat / cumulative)
+     .      .  241: 		}
+     .      .  242: 		
+     .      .  243: 	}
+     .      .  244: }
+     .      .  245: 
+---
+     .      .  246: void* thread_function(void *threadInfo) {
+     .      .  247: 
+     .      .  248: 	struct ThreadInfo *info = (struct ThreadInfo*) threadInfo;
+     .      .  249: 
+     .      .  250: 	// inserts them all into a (single shared-by-all-threads) list
+     .    656  251: 	thread_list_insert(info->index);
+     .      .  252: 
+     .      .  253: 	// gets the list length
+     .      1  254: 	thread_list_length();
+     .      .  255: 
+     .      .  256: 	// looks up and deletes each of the keys it had previously inserted
+     .    699  257: 	thread_list_delete(info->index);
+     .      .  258: 
+     .      .  259: 	// exits to re-join the parent thread
+     .      .  260: 	return NULL;
+     .      .  261: 	
+     .      .  262: }
+---
+     .      .  263: 
+     .      .  264: void initialize_random_generator() {
+     .      .  265: 	srand(time(NULL));
+     .      .  266: }
+     .      .  267: 
+ROUTINE ====================== thread_list_insert in /u/cs/ugrad/junhong/cs111/project2b/lab2_list.c
+     0    656 Total samples (flat / cumulative)
+     .      .  172: 		sum += (i + 1) * str[i];
+     .      .  173: 
+     .      .  174: 	return sum;
+     .      .  175: }
+     .      .  176: 
+---
+     .      .  177: void thread_list_insert(int thread_index) {
+     .      .  178: 	int i, list_index;
+     .      .  179: 
+     .      .  180: 	for (i = thread_index; i < get_num_elements(); i += num_threads) {
+     .      .  181: 
+     .      .  182: 		list_index = hash(elements[i].key) % num_lists;
+     .      .  183: 
+     .      .  184: 		if (opt_sync) {
+     .      .  185: 
+     .      .  186: 			if (sync_method == 'm') 
+     .      .  187: 				mutex_list_insert(list_index, &elements[i]);
+     .      .  188: 			else if (sync_method == 's')
+     .    656  189: 				spin_list_insert(list_index, &elements[i]);
+     .      .  190: 
+     .      .  191: 		} else {
+     .      .  192: 			SortedList_insert(&lists[list_index], &elements[i]);
+     .      .  193: 		}
+     .      .  194: 		
+     .      .  195: 	}
+     .      .  196: }
+---
+     .      .  197: 
+     .      .  198: void thread_list_length() {
+     .      .  199: 	int i, list_length;
+     .      .  200: 
+     .      .  201: 	for (i = 0; i < num_lists; i++) {
+ROUTINE ====================== thread_list_insert in /u/cs/ugrad/junhong/cs111/project2b/lab2_list.c
+     0    656 Total samples (flat / cumulative)
+     .      .  172: 		sum += (i + 1) * str[i];
+     .      .  173: 
+     .      .  174: 	return sum;
+     .      .  175: }
+     .      .  176: 
+---
+     .      .  177: void thread_list_insert(int thread_index) {
+     .      .  178: 	int i, list_index;
+     .      .  179: 
+     .      .  180: 	for (i = thread_index; i < get_num_elements(); i += num_threads) {
+     .      .  181: 
+     .      .  182: 		list_index = hash(elements[i].key) % num_lists;
+     .      .  183: 
+     .      .  184: 		if (opt_sync) {
+     .      .  185: 
+     .      .  186: 			if (sync_method == 'm') 
+     .      .  187: 				mutex_list_insert(list_index, &elements[i]);
+     .      .  188: 			else if (sync_method == 's')
+     .    656  189: 				spin_list_insert(list_index, &elements[i]);
+     .      .  190: 
+     .      .  191: 		} else {
+     .      .  192: 			SortedList_insert(&lists[list_index], &elements[i]);
+     .      .  193: 		}
+     .      .  194: 		
+     .      .  195: 	}
+     .      .  196: }
+---
+     .      .  197: 
+     .      .  198: void thread_list_length() {
+     .      .  199: 	int i, list_length;
+     .      .  200: 
+     .      .  201: 	for (i = 0; i < num_lists; i++) {
+ROUTINE ====================== thread_list_length in /u/cs/ugrad/junhong/cs111/project2b/lab2_list.c
+     0      1 Total samples (flat / cumulative)
+     .      .  193: 		}
+     .      .  194: 		
+     .      .  195: 	}
+     .      .  196: }
+     .      .  197: 
+---
+     .      .  198: void thread_list_length() {
+     .      .  199: 	int i, list_length;
+     .      .  200: 
+     .      .  201: 	for (i = 0; i < num_lists; i++) {
+     .      .  202: 
+     .      .  203: 		if (opt_sync) {
+     .      .  204: 
+     .      .  205: 			if (sync_method == 'm') 
+     .      .  206: 				list_length = mutex_list_length(i);
+     .      .  207: 			else if (sync_method == 's')
+     .      1  208: 				list_length = spin_list_length(i);
+     .      .  209: 
+     .      .  210: 		}
+     .      .  211: 		else {
+     .      .  212: 			list_length = SortedList_length(&lists[i]);
+     .      .  213: 		}
+     .      .  214: 
+     .      .  215: 		if (list_length == -1) {
+     .      .  216: 			fprintf(stderr, "Error getting the length of the list\n");
+     .      .  217: 			exit(2);
+     .      .  218: 		}
+     .      .  219: 
+     .      .  220: 	}
+     .      .  221: 
+     .      .  222: }
+---
+     .      .  223: 
+     .      .  224: void thread_list_delete(int thread_index) {
+     .      .  225: 	int i, list_index;
+     .      .  226: 
+     .      .  227: 	for (i = thread_index; i < get_num_elements(); i += num_threads) {
+ROUTINE ====================== thread_list_length in /u/cs/ugrad/junhong/cs111/project2b/lab2_list.c
+     0      1 Total samples (flat / cumulative)
+     .      .  193: 		}
+     .      .  194: 		
+     .      .  195: 	}
+     .      .  196: }
+     .      .  197: 
+---
+     .      .  198: void thread_list_length() {
+     .      .  199: 	int i, list_length;
+     .      .  200: 
+     .      .  201: 	for (i = 0; i < num_lists; i++) {
+     .      .  202: 
+     .      .  203: 		if (opt_sync) {
+     .      .  204: 
+     .      .  205: 			if (sync_method == 'm') 
+     .      .  206: 				list_length = mutex_list_length(i);
+     .      .  207: 			else if (sync_method == 's')
+     .      1  208: 				list_length = spin_list_length(i);
+     .      .  209: 
+     .      .  210: 		}
+     .      .  211: 		else {
+     .      .  212: 			list_length = SortedList_length(&lists[i]);
+     .      .  213: 		}
+     .      .  214: 
+     .      .  215: 		if (list_length == -1) {
+     .      .  216: 			fprintf(stderr, "Error getting the length of the list\n");
+     .      .  217: 			exit(2);
+     .      .  218: 		}
+     .      .  219: 
+     .      .  220: 	}
+     .      .  221: 
+     .      .  222: }
+---
+     .      .  223: 
+     .      .  224: void thread_list_delete(int thread_index) {
+     .      .  225: 	int i, list_index;
+     .      .  226: 
+     .      .  227: 	for (i = thread_index; i < get_num_elements(); i += num_threads) {
+ROUTINE ====================== thread_list_delete in /u/cs/ugrad/junhong/cs111/project2b/lab2_list.c
+     0    699 Total samples (flat / cumulative)
+     .      .  219: 
+     .      .  220: 	}
+     .      .  221: 
+     .      .  222: }
+     .      .  223: 
+---
+     .      .  224: void thread_list_delete(int thread_index) {
+     .      .  225: 	int i, list_index;
+     .      .  226: 
+     .      .  227: 	for (i = thread_index; i < get_num_elements(); i += num_threads) {
+     .      .  228: 
+     .      .  229: 		list_index = hash(elements[i].key) % num_lists;
+     .      .  230: 
+     .      .  231: 		if (opt_sync) {
+     .      .  232: 
+     .      .  233: 			if (sync_method == 'm')
+     .      .  234: 				mutex_list_delete(list_index, elements[i].key);
+     .      .  235: 			else if (sync_method == 's')
+     .    699  236: 				spin_list_delete(list_index, elements[i].key);
+     .      .  237: 
+     .      .  238: 		}
+     .      .  239: 		else {
+     .      .  240: 			handle_list_delete(&lists[list_index], elements[i].key);
+     .      .  241: 		}
+     .      .  242: 		
+     .      .  243: 	}
+     .      .  244: }
+---
+     .      .  245: 
+     .      .  246: void* thread_function(void *threadInfo) {
+     .      .  247: 
+     .      .  248: 	struct ThreadInfo *info = (struct ThreadInfo*) threadInfo;
+     .      .  249: 
+ROUTINE ====================== thread_list_delete in /u/cs/ugrad/junhong/cs111/project2b/lab2_list.c
+     0    699 Total samples (flat / cumulative)
+     .      .  219: 
+     .      .  220: 	}
+     .      .  221: 
+     .      .  222: }
+     .      .  223: 
+---
+     .      .  224: void thread_list_delete(int thread_index) {
+     .      .  225: 	int i, list_index;
+     .      .  226: 
+     .      .  227: 	for (i = thread_index; i < get_num_elements(); i += num_threads) {
+     .      .  228: 
+     .      .  229: 		list_index = hash(elements[i].key) % num_lists;
+     .      .  230: 
+     .      .  231: 		if (opt_sync) {
+     .      .  232: 
+     .      .  233: 			if (sync_method == 'm')
+     .      .  234: 				mutex_list_delete(list_index, elements[i].key);
+     .      .  235: 			else if (sync_method == 's')
+     .    699  236: 				spin_list_delete(list_index, elements[i].key);
+     .      .  237: 
+     .      .  238: 		}
+     .      .  239: 		else {
+     .      .  240: 			handle_list_delete(&lists[list_index], elements[i].key);
+     .      .  241: 		}
+     .      .  242: 		
+     .      .  243: 	}
+     .      .  244: }
+---
+     .      .  245: 
+     .      .  246: void* thread_function(void *threadInfo) {
+     .      .  247: 
+     .      .  248: 	struct ThreadInfo *info = (struct ThreadInfo*) threadInfo;
+     .      .  249: 
+ROUTINE ====================== spin_list_insert in /u/cs/ugrad/junhong/cs111/project2b/lab2_list.c
+     0    656 Total samples (flat / cumulative)
+     .      .  111: 	pthread_mutex_lock_with_timer(&m_locks[index]);
+     .      .  112: 	SortedList_insert(&lists[index], element);
+     .      .  113: 	pthread_mutex_unlock(&m_locks[index]);
+     .      .  114: }
+     .      .  115: 
+---
+     .      .  116: void spin_list_insert(int index, SortedListElement_t *element) {
+     .    563  117: 	__sync_lock_spin_with_timer(&s_locks[index], 1);
+     .     93  118: 	SortedList_insert(&lists[index], element);
+     .      .  119: 	__sync_lock_release(&s_locks[index]);
+     .      .  120: }
+---
+     .      .  121: 
+     .      .  122: int mutex_list_length(int index) {
+     .      .  123: 	int length;
+     .      .  124: 	pthread_mutex_lock_with_timer(&m_locks[index]);
+     .      .  125: 	length = SortedList_length(&lists[index]);
+ROUTINE ====================== spin_list_insert in /u/cs/ugrad/junhong/cs111/project2b/lab2_list.c
+     0    656 Total samples (flat / cumulative)
+     .      .  111: 	pthread_mutex_lock_with_timer(&m_locks[index]);
+     .      .  112: 	SortedList_insert(&lists[index], element);
+     .      .  113: 	pthread_mutex_unlock(&m_locks[index]);
+     .      .  114: }
+     .      .  115: 
+---
+     .      .  116: void spin_list_insert(int index, SortedListElement_t *element) {
+     .    563  117: 	__sync_lock_spin_with_timer(&s_locks[index], 1);
+     .     93  118: 	SortedList_insert(&lists[index], element);
+     .      .  119: 	__sync_lock_release(&s_locks[index]);
+     .      .  120: }
+---
+     .      .  121: 
+     .      .  122: int mutex_list_length(int index) {
+     .      .  123: 	int length;
+     .      .  124: 	pthread_mutex_lock_with_timer(&m_locks[index]);
+     .      .  125: 	length = SortedList_length(&lists[index]);
+ROUTINE ====================== spin_list_length in /u/cs/ugrad/junhong/cs111/project2b/lab2_list.c
+     0      1 Total samples (flat / cumulative)
+     .      .  125: 	length = SortedList_length(&lists[index]);
+     .      .  126: 	pthread_mutex_unlock(&m_locks[index]);
+     .      .  127: 	return length;
+     .      .  128: }
+     .      .  129: 
+---
+     .      .  130: int spin_list_length(int index) {
+     .      .  131: 	int length;
+     .      1  132: 	__sync_lock_spin_with_timer(&s_locks[index], 1);
+     .      .  133: 	length = SortedList_length(&lists[index]);
+     .      .  134: 	__sync_lock_release(&s_locks[index]);
+     .      .  135: 	return length;
+     .      .  136: }
+---
+     .      .  137: 
+     .      .  138: void handle_list_delete(SortedList_t *list, const char *key) {
+     .      .  139: 	SortedListElement_t *element;
+     .      .  140: 	element = SortedList_lookup(list, key);
+     .      .  141: 	if (element == NULL) {
+ROUTINE ====================== spin_list_length in /u/cs/ugrad/junhong/cs111/project2b/lab2_list.c
+     0      1 Total samples (flat / cumulative)
+     .      .  125: 	length = SortedList_length(&lists[index]);
+     .      .  126: 	pthread_mutex_unlock(&m_locks[index]);
+     .      .  127: 	return length;
+     .      .  128: }
+     .      .  129: 
+---
+     .      .  130: int spin_list_length(int index) {
+     .      .  131: 	int length;
+     .      1  132: 	__sync_lock_spin_with_timer(&s_locks[index], 1);
+     .      .  133: 	length = SortedList_length(&lists[index]);
+     .      .  134: 	__sync_lock_release(&s_locks[index]);
+     .      .  135: 	return length;
+     .      .  136: }
+---
+     .      .  137: 
+     .      .  138: void handle_list_delete(SortedList_t *list, const char *key) {
+     .      .  139: 	SortedListElement_t *element;
+     .      .  140: 	element = SortedList_lookup(list, key);
+     .      .  141: 	if (element == NULL) {
+ROUTINE ====================== spin_list_delete in /u/cs/ugrad/junhong/cs111/project2b/lab2_list.c
+     0    699 Total samples (flat / cumulative)
+     .      .  152: 	pthread_mutex_lock_with_timer(&m_locks[index]);
+     .      .  153: 	handle_list_delete(&lists[index], key);
+     .      .  154: 	pthread_mutex_unlock(&m_locks[index]);
+     .      .  155: }
+     .      .  156: 
+---
+     .      .  157: void spin_list_delete(int index, const char *key) {
+     .    602  158: 	__sync_lock_spin_with_timer(&s_locks[index], 1);
+     .     97  159: 	handle_list_delete(&lists[index], key);
+     .      .  160: 	__sync_lock_release(&s_locks[index]);
+     .      .  161: }
+---
+     .      .  162: 
+     .      .  163: int get_num_elements() {
+     .      .  164: 	return num_threads * num_iterations;
+     .      .  165: }
+     .      .  166: 
+ROUTINE ====================== spin_list_delete in /u/cs/ugrad/junhong/cs111/project2b/lab2_list.c
+     0    699 Total samples (flat / cumulative)
+     .      .  152: 	pthread_mutex_lock_with_timer(&m_locks[index]);
+     .      .  153: 	handle_list_delete(&lists[index], key);
+     .      .  154: 	pthread_mutex_unlock(&m_locks[index]);
+     .      .  155: }
+     .      .  156: 
+---
+     .      .  157: void spin_list_delete(int index, const char *key) {
+     .    602  158: 	__sync_lock_spin_with_timer(&s_locks[index], 1);
+     .     97  159: 	handle_list_delete(&lists[index], key);
+     .      .  160: 	__sync_lock_release(&s_locks[index]);
+     .      .  161: }
+---
+     .      .  162: 
+     .      .  163: int get_num_elements() {
+     .      .  164: 	return num_threads * num_iterations;
+     .      .  165: }
+     .      .  166: 
+ROUTINE ====================== __sync_lock_spin_with_timer in /u/cs/ugrad/junhong/cs111/project2b/lab2_list.c
+  1166   1166 Total samples (flat / cumulative)
+     .      .   97: 	pthread_mutex_lock(m_lock);
+     .      .   98: 	clock_gettime(CLOCK_MONOTONIC, &end);
+     .      .   99: 	total_lock_acquisition_time += get_run_time(&start, &end);
+     .      .  100: }
+     .      .  101: 
+---
+     .      .  102: void __sync_lock_spin_with_timer(int *s_lock, int value) {
+     .      .  103: 	struct timespec start, end;
+     .      .  104: 	clock_gettime(CLOCK_MONOTONIC, &start);
+  1165   1165  105: 	while (__sync_lock_test_and_set(s_lock, value));
+     1      1  106: 	clock_gettime(CLOCK_MONOTONIC, &end);
+     .      .  107: 	total_lock_acquisition_time += get_run_time(&start, &end);
+     .      .  108: }
+---
+     .      .  109: 
+     .      .  110: void mutex_list_insert(int index, SortedListElement_t *element) {
+     .      .  111: 	pthread_mutex_lock_with_timer(&m_locks[index]);
+     .      .  112: 	SortedList_insert(&lists[index], element);
+     .      .  113: 	pthread_mutex_unlock(&m_locks[index]);
+ROUTINE ====================== __sync_lock_spin_with_timer in /u/cs/ugrad/junhong/cs111/project2b/lab2_list.c
+  1166   1166 Total samples (flat / cumulative)
+     .      .   97: 	pthread_mutex_lock(m_lock);
+     .      .   98: 	clock_gettime(CLOCK_MONOTONIC, &end);
+     .      .   99: 	total_lock_acquisition_time += get_run_time(&start, &end);
+     .      .  100: }
+     .      .  101: 
+---
+     .      .  102: void __sync_lock_spin_with_timer(int *s_lock, int value) {
+     .      .  103: 	struct timespec start, end;
+     .      .  104: 	clock_gettime(CLOCK_MONOTONIC, &start);
+  1165   1165  105: 	while (__sync_lock_test_and_set(s_lock, value));
+     1      1  106: 	clock_gettime(CLOCK_MONOTONIC, &end);
+     .      .  107: 	total_lock_acquisition_time += get_run_time(&start, &end);
+     .      .  108: }
+---
+     .      .  109: 
+     .      .  110: void mutex_list_insert(int index, SortedListElement_t *element) {
+     .      .  111: 	pthread_mutex_lock_with_timer(&m_locks[index]);
+     .      .  112: 	SortedList_insert(&lists[index], element);
+     .      .  113: 	pthread_mutex_unlock(&m_locks[index]);

@@ -1,0 +1,26 @@
+NAME:  Junhong Wang
+EMAIL: oneone@g.ucla.edu
+ID:    504941113
+
+------------------------
+README
+------------------------
+descriptions of each of the included files and any other information about 
+my submission that I would like to bring to your attention
+
+------------------------
+lab4c_tcp.c
+------------------------
+C source files for an embedded application that builds and runs 
+(with no errors or warnings) on an embedded system with TCP
+
+------------------------
+lab4c_tls.c
+------------------------
+C source files for an embedded application that builds and runs 
+(with no errors or warnings) on an embedded system with SSL
+
+------------------------
+Makefile
+------------------------
+A Makefile to compile the program

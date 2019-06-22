@@ -1,0 +1,66 @@
+NAME:  Junhong Wang
+EMAIL: oneone@g.ucla.edu
+ID:    504941113
+
+
+
+==============================
+serial number of my Beaglebone
+==============================
+BBGW17080047
+
+==============================
+WiFi MAC address
+==============================
+2CF7F106692F
+
+
+
+
+=================
+README
+=================
+This file contains the serial number of my Beaglebone and the WiFi MAC address, 
+and a description of the other files.
+
+
+=================
+
+.jpg
+=================
+a selfie of me holding my assembled Beaglebone (showing the front of the board).
+
+
+=================
+connected.png
+=================
+a screen shot from a USB terminal command session connected to my system, 
+showing that I gave it a name and configured network access.
+
+
+=================
+copy.png
+=================
+a screen shot from a local session in which I copy a hello world program 
+from my laptop/desktop to my Beaglebone.
+
+
+=================
+build_run.png
+=================
+a screen shot from a WIFI SSH session in which I build and run a trivial (hello world) program.
+
+
+=================
+git.png
+=================
+a screen shot from a WIFI SSH session in which I install git and clone a repository.
+
+
+=================
+Makefile
+=================
+a Makefile to build the tarball.
+
+
+

@@ -1,0 +1,45 @@
+NAME:  Junhong Wang
+EMAIL: oneone@g.ucla.edu
+ID:    504941113
+
+==============
+README
+==============
+This file contains information about other files
+
+==============
+lab1b-client.c
+==============
+The client program will open a connection to a server 
+(port specified with the mandatory --port= command line parameter)
+rather than sending it directly to a shell. The client should then 
+send input from the keyboard to the socket (while echoing to the display), 
+and input from the socket to the display.
+
+==============
+lab1b-server.c
+==============
+The server program will connect with the client, 
+receive the client's commands and send them to the shell, 
+and will "serve" the client the outputs of those commands.
+
+==============
+Makefile
+==============
+A Makefile to build the program (compiling it with the -Wall and -Wextra options) and the tarball. 
+It should have distinct targets for the client and server, 
+but it should also have a default target that builds both. 
+It should also have the (now) traditional clean and dist targets.
+
+==============
+Other
+==============
+* How to use socket
+http://www.linuxhowtos.org/c_c++/socket.htm
+
+* How to compress data
+https://www.zlib.net/zlib_how.html
+https://www.s-yata.jp/docs/zlib/
+
+* atexit can be called multiple times
+http://www.cplusplus.com/reference/cstdlib/atexit/
